@@ -69,9 +69,7 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      root: config.get('paths.theme'),
-    }),
+    new CleanWebpackPlugin(),
 
     extractLiquidStyles,
 
