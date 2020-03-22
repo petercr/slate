@@ -2,7 +2,6 @@
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const slateEnv = require('@shopify/slate-env');
-const {event} = require('@shopify/slate-analytics');
 const {fetchMainThemeId} = require('@shopify/slate-sync');
 const figures = require('figures');
 const {argv} = require('yargs');
@@ -36,7 +35,6 @@ module.exports = async function continueIfPublishedTheme(env) {
     return question.default;
   }
 
-  console.log();
   const answer = await inquirer.prompt([question]);
 
   return answer.continueWithDeploy;

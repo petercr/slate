@@ -16,7 +16,6 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
-    "@shopify/slate-analytics": "1.0.0-beta.16",
     "@shopify/slate-config": "1.0.0-beta.14",
     "@shopify/slate-cssvar-loader": "1.0.0-beta.16",
     "@shopify/slate-env": "1.0.0-beta.16",
