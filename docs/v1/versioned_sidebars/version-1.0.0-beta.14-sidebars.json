@@ -27,7 +27,6 @@
     ],
     "Reference": [
       "version-1.0.0-beta.14-create-slate-theme",
-      "version-1.0.0-beta.14-slate-analytics",
       "version-1.0.0-beta.14-slate-configuration",
       "version-1.0.0-beta.14-slate-cssvar-loader"
     ]
