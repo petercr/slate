@@ -29,7 +29,7 @@ describe('when the file first is executed it', () => {
   test('looks for a slate.config.js file if global.slateConfigPath is defined', () => {
     global.slateConfigPath = path.resolve(
       __dirname,
-      'fixtures/slate.config.js',
+      'fixtures/slate.config.js'
     );
 
     const userConfig = require('./fixtures/slate.config');
@@ -50,7 +50,7 @@ describe('when the file first is executed it', () => {
   test('throws error if there is an error in the slate.config.js file', () => {
     global.slateConfigPath = path.resolve(
       __dirname,
-      'fixtures/slateWithError.config.js',
+      'fixtures/slateWithError.config.js'
     );
 
     expect(() => {
@@ -120,7 +120,7 @@ describe('SlateConfig.get()', () => {
 
     expect(global.slateUserConfig['some.function']).toBeCalledWith(
       config,
-      defaultValue,
+      defaultValue
     );
     expect(value).toBe(userConfigValue);
   });

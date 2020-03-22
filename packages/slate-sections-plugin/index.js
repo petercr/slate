@@ -1,5 +1,6 @@
-const fs = require('fs-extra');
 const path = require('path');
+
+const fs = require('fs-extra');
 const {ConcatSource, RawSource} = require('webpack-sources');
 const {
   createSchemaContentWithLocales,
@@ -34,27 +35,27 @@ module.exports = class sectionsPlugin {
           const pathToLiquidFile = path.resolve(
             this.options.from,
             file,
-            this.options.genericTemplateName,
+            this.options.genericTemplateName
           );
           const outputKey = this._getOutputKey(
             pathToLiquidFile,
-            compilationOutput,
+            compilationOutput
           );
           compilation.assets[
             outputKey
           ] = await this._getWebpackSourceForDirectory(
-            path.resolve(this.options.from, file),
+            path.resolve(this.options.from, file)
           );
         } else if (fileStat.isFile() && path.extname(file) === '.liquid') {
           const outputKey = this._getOutputKey(
             path.resolve(this.options.from, file),
-            compilationOutput,
+            compilationOutput
           );
           compilation.assets[outputKey] = await this._getLiquidSource(
-            path.resolve(this.options.from, file),
+            path.resolve(this.options.from, file)
           );
         }
-      }),
+      })
     );
   }
 
@@ -100,7 +101,7 @@ module.exports = class sectionsPlugin {
   _getOutputKey(liquidSourcePath, compilationOutput) {
     const relativePathFromSections = path.relative(
       this.options.from,
-      liquidSourcePath,
+      liquidSourcePath
     );
 
     const fileName = this._getOutputFileName(relativePathFromSections);
@@ -108,7 +109,7 @@ module.exports = class sectionsPlugin {
     // The relative path from the output set in webpack, to the specified output for sections in slate config
     const relativeOutputPath = path.relative(
       compilationOutput,
-      this.options.to,
+      this.options.to
     );
 
     return path.join(relativeOutputPath, fileName);
@@ -137,7 +138,7 @@ module.exports = class sectionsPlugin {
 
     const liquidSourcePath = path.resolve(
       directoryPath,
-      this.options.genericTemplateName,
+      this.options.genericTemplateName
     );
 
     const liquidSource = await this._getLiquidSource(liquidSourcePath);
@@ -150,16 +151,16 @@ module.exports = class sectionsPlugin {
       const schemaContent = combinedLocales
         ? await createSchemaContentWithLocales(
             combinedLocales,
-            path.resolve(directoryPath, 'schema.json'),
+            path.resolve(directoryPath, 'schema.json')
           )
         : JSON.stringify(
             await fs.readJSON(path.resolve(directoryPath, 'schema.json')),
             null,
-            2,
+            2
           );
 
       const schemaSource = new RawSource(
-        `{% schema %}\n${schemaContent}\n{% endschema %}`,
+        `{% schema %}\n${schemaContent}\n{% endschema %}`
       );
 
       return new ConcatSource(liquidSource, schemaSource);

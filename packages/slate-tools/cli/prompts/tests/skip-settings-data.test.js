@@ -68,7 +68,7 @@ describe('promptIfSettingsData()', () => {
       globs.map((glob) => {
         env.__setIgnoreValue(glob);
         return promptIfSettingsData(FILES);
-      }),
+      })
     );
 
     expect(inquirer.prompt).toHaveBeenCalledTimes(0);

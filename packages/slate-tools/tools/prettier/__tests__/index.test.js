@@ -17,7 +17,7 @@ describe('Prettier()', () => {
     expect(exec).toHaveBeenCalledTimes(1);
     expect(exec).toHaveBeenCalledWith(
       expect.stringContaining(config.get('prettier.bin')),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -30,7 +30,7 @@ describe('Prettier()', () => {
 
     expect(exec).toHaveBeenCalledWith(
       expect.stringContaining(`--config ${config.get('prettier.config')}`),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -41,9 +41,9 @@ describe('Prettier()', () => {
     prettier();
     expect(exec).toHaveBeenCalledWith(
       expect.stringContaining(
-        `--ignore-path ${config.get('prettier.ignorePath')}`,
+        `--ignore-path ${config.get('prettier.ignorePath')}`
       ),
-      expect.anything(),
+      expect.anything()
     );
   });
 });

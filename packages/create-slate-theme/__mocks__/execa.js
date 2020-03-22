@@ -5,7 +5,7 @@ const mockFunction = jest.fn(() => {
   return Promise.resolve();
 });
 
-module.exports = function(file, args, options) {
+module.exports = function (file, args, options) {
   console.log(file, args, options);
   if (file === 'git' && args[0] === 'clone') {
     fs.__addMockFiles({

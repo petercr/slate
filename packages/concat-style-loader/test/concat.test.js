@@ -10,7 +10,7 @@ describe('concatStyles()', () => {
     const content = fs.readFileSync(rootPath, 'utf8');
     const concatenated = fs.readFileSync(
       require.resolve('./fixtures/concatenated.css'),
-      'utf8',
+      'utf8'
     );
 
     const results = await concatStyles(content, rootPath);

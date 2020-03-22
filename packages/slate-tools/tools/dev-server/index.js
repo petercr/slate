@@ -1,5 +1,6 @@
 const browserSync = require('browser-sync');
 const {getStoreValue, getThemeIdValue} = require('@shopify/slate-env');
+
 const {getSSLKeyPath, getSSLCertPath} = require('../utilities');
 
 class DevServer {
@@ -14,6 +15,7 @@ class DevServer {
       this.target +
       (this.themeId === 'live' ? '' : `?preview_theme_id=${this.themeId}`);
   }
+
   start() {
     const bsConfig = {
       port: this.port,
@@ -30,7 +32,7 @@ class DevServer {
           next();
         },
         proxyRes: [
-          function(proxyRes) {
+          function (proxyRes) {
             // disable HSTS. Slate might force us to use HTTPS but having HSTS on local dev makes it impossible to do other non-Slate dev.
             delete proxyRes.headers['strict-transport-security'];
           },

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+
 const dotenv = require('dotenv');
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('./slate-env.schema'));
 
 const SLATE_ENV_VARS = [
@@ -26,7 +28,7 @@ function create({values, name, root} = {}) {
   const envName = _getFileName(name);
   const envPath = path.resolve(
     root || config.get('env.rootDirectory'),
-    envName,
+    envName
   );
   const envContents = _getFileContents(values);
 
@@ -93,7 +95,7 @@ function validate() {
   const errors = [].concat(
     _validateStore(),
     _validatePassword(),
-    _validateThemeId(),
+    _validateThemeId()
   );
 
   return {
@@ -114,14 +116,14 @@ function _validateStore() {
   ) {
     errors.push(
       new Error(
-        `${config.get('env.keys.store')} must be a valid .myshopify.com URL`,
-      ),
+        `${config.get('env.keys.store')} must be a valid .myshopify.com URL`
+      )
     );
   } else if (store.slice(-1) === '/') {
     errors.push(
       new Error(
-        `${config.get('env.keys.store')} must not end with a trailing slash`,
-      ),
+        `${config.get('env.keys.store')} must not end with a trailing slash`
+      )
     );
   }
 
@@ -134,15 +136,15 @@ function _validatePassword() {
 
   if (password.length === 0) {
     errors.push(
-      new Error(`${config.get('env.keys.password')} must not be empty`),
+      new Error(`${config.get('env.keys.password')} must not be empty`)
     );
   } else if (!/^\w+$/.test(password)) {
     errors.push(
       new Error(
         `${config.get(
-          'env.keys.password',
-        )} can only contain numbers and letters`,
-      ),
+          'env.keys.password'
+        )} can only contain numbers and letters`
+      )
     );
   }
 
@@ -155,15 +157,15 @@ function _validateThemeId() {
 
   if (themeId.length === 0) {
     errors.push(
-      new Error(`${config.get('env.keys.themeId')} must not be empty`),
+      new Error(`${config.get('env.keys.themeId')} must not be empty`)
     );
   } else if (themeId !== 'live' && !/^\d+$/.test(themeId)) {
     errors.push(
       new Error(
         `${config.get(
-          'env.keys.themeId',
-        )} can be set to 'live' or a valid theme ID containing only numbers`,
-      ),
+          'env.keys.themeId'
+        )} can be set to 'live' or a valid theme ID containing only numbers`
+      )
     );
   }
 

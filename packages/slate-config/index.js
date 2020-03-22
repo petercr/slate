@@ -8,12 +8,12 @@ module.exports = class SlateConfig {
   constructor(schema, userConfigOverride) {
     if (typeof schema === 'undefined') {
       throw new TypeError(
-        '[slate-config]: A schema object must be provided as the first argument',
+        '[slate-config]: A schema object must be provided as the first argument'
       );
     }
 
     this.userConfigOverride = userConfigOverride;
-    this.schema = Object.assign({}, schema);
+    this.schema = {...schema};
   }
 
   get userConfig() {
@@ -23,7 +23,7 @@ module.exports = class SlateConfig {
   set(key, value, override = false) {
     if (typeof this.schema[key] !== 'undefined' && !override) {
       throw new Error(
-        `[slate-config]: A value for '${key}' has already been set. A value can only be set once.`,
+        `[slate-config]: A value for '${key}' has already been set. A value can only be set once.`
       );
     }
 
@@ -40,7 +40,7 @@ module.exports = class SlateConfig {
       typeof userConfigValue === 'undefined'
     ) {
       throw new Error(
-        `[slate-config]: A value has not been defined for the key '${key}'`,
+        `[slate-config]: A value has not been defined for the key '${key}'`
       );
     }
 

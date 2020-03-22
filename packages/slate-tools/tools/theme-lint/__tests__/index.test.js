@@ -16,7 +16,7 @@ describe('themelint()', () => {
     expect(execSync).toHaveBeenCalledTimes(1);
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(config.get('themelint.bin')),
-      expect.anything(),
+      expect.anything()
     );
   });
 });

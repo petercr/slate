@@ -18,6 +18,6 @@ test(`merges contents of 'webpack.extend' into webpack config`, () => {
   require('../dev');
 
   expect(merge).toBeCalledWith(
-    expect.arrayContaining([global.slateUserConfig['webpack.extend']]),
+    expect.arrayContaining([global.slateUserConfig['webpack.extend']])
   );
 });

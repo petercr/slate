@@ -1,6 +1,8 @@
-const fs = require('fs-extra');
 const path = require('path');
+
+const fs = require('fs-extra');
 const execa = require('execa');
+
 const createSlateTheme = require('../create-slate-theme');
 const config = require('../create-slate-theme.config');
 const {splitCommandString} = require('../utils');
@@ -75,7 +77,7 @@ test('can copy a theme from a local directory', async () => {
   await createSlateTheme('test-project', 'old-project');
   expect(fs.existsSync('test-project/package.json')).toBeTruthy();
   expect(
-    fs.existsSync('test-project/node_modules/some-package/index.js'),
+    fs.existsSync('test-project/node_modules/some-package/index.js')
   ).toBeFalsy();
   expect(fs.existsSync('test-project/.git/index')).toBeFalsy();
 });
@@ -86,11 +88,10 @@ test('installs theme dependencies after cloning or copying', async () => {
 });
 
 test('can skip installing theme dependencies', async () => {
-  await createSlateTheme(
-    'test-project',
-    'shopify/test-repo',
-    Object.assign({}, config.defaultOptions, {skipInstall: true}),
-  );
+  await createSlateTheme('test-project', 'shopify/test-repo', {
+    ...config.defaultOptions,
+    skipInstall: true,
+  });
   expect(execa()).not.toHaveBeenCalledWith('yarnpkg', [], {stdio: 'inherit'});
   expect(execa()).not.toHaveBeenCalledWith('npm', ['install'], {
     stdio: 'inherit',
@@ -99,7 +100,7 @@ test('can skip installing theme dependencies', async () => {
 
 test('fails if theme name does not adhere to NPM naming restrictions', async () => {
   await expect(
-    createSlateTheme('test project', config.defaultStarter),
+    createSlateTheme('test project', config.defaultStarter)
   ).rejects.toBeInstanceOf(Error);
   expect(process.exit).toHaveBeenCalled();
 });
@@ -110,14 +111,14 @@ test('fails if the a conflicting file already exists in the theme directory', as
   });
 
   await expect(
-    createSlateTheme('test-project', config.defaultStarter),
+    createSlateTheme('test-project', config.defaultStarter)
   ).rejects.toBeInstanceOf(Error);
   expect(process.exit).toHaveBeenCalled();
 });
 
 test('throws an error when copying from a local directory that does not exist', async () => {
   await expect(
-    createSlateTheme('test-project', 'old-project'),
+    createSlateTheme('test-project', 'old-project')
   ).rejects.toBeInstanceOf(Error);
 });
 
@@ -127,6 +128,6 @@ test('throws an error if a project already exists', () => {
   });
 
   expect(
-    createSlateTheme('test-project', 'shopify/test-repo'),
+    createSlateTheme('test-project', 'shopify/test-repo')
   ).rejects.toBeInstanceOf(Error);
 });

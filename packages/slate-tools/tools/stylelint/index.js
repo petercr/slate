@@ -1,5 +1,6 @@
 const fs = require('fs');
 const execSync = require('child_process').execSync;
+
 const SlateConfig = require('@shopify/slate-config');
 
 const config = new SlateConfig(require('../../slate-tools.schema'));
@@ -15,11 +16,11 @@ function stylelint({fix} = {}) {
 
   execSync(
     `${JSON.stringify(
-      executable,
+      executable
     )} "${glob}" ${stylelintConfig} ${fixFlag} ${ignorePath}`,
     {
       stdio: 'inherit',
-    },
+    }
   );
 }
 

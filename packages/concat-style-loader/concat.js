@@ -36,7 +36,7 @@ function parseImports(content, rootPath, loader) {
 function fetchAssetContent(assetPath, loader) {
   if (!fs.existsSync(assetPath)) {
     throw new Error(
-      `Concat Style Loader Error: Cannot find asset '${assetPath}'`,
+      `Concat Style Loader Error: Cannot find asset '${assetPath}'`
     );
   }
 
@@ -50,7 +50,7 @@ function fetchAssetContent(assetPath, loader) {
 function getImportStatements(content, ignoreComments = true) {
   const regex = new RegExp(
     '(?:@import)(?:\\s)(?:url)?(?:(?:(?:\\()(["\'])?(?:[^"\')]+)\\1(?:\\))|(["\'])(?:.+)\\2)(?:[A-Z\\s])*)+(?:;)',
-    'gi',
+    'gi'
   );
   const matches = [];
   let match;

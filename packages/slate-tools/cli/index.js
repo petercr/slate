@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const argv = require('minimist')(process.argv.slice(2));
 const SlateConfig = require('@shopify/slate-config');
 const slateEnv = require('@shopify/slate-env');
+
 const packageJson = require('../package.json');
 
 const script = process.argv[2];
@@ -41,7 +42,7 @@ async function init() {
       result = spawn.sync(
         'node',
         [require.resolve(`./commands/${script}`)].concat(args),
-        {stdio: 'inherit'},
+        {stdio: 'inherit'}
       );
       process.exit(result.status);
       break;

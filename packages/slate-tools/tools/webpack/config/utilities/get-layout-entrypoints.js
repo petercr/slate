@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 
-module.exports = function() {
+module.exports = function () {
   const entrypoints = {};
 
   fs.readdirSync(config.get('paths.theme.src.layout')).forEach((file) => {
@@ -11,7 +13,7 @@ module.exports = function() {
     const jsFile = path.join(
       config.get('paths.theme.src.scripts'),
       'layout',
-      `${name}.js`,
+      `${name}.js`
     );
     if (fs.existsSync(jsFile)) {
       entrypoints[`layout.${name}`] = jsFile;

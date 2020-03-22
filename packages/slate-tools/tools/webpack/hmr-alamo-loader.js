@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('../../slate-tools.schema'));
 
 const jsEntries = Object.keys(config.get('webpack.entrypoints')).reduce(
@@ -7,12 +8,12 @@ const jsEntries = Object.keys(config.get('webpack.entrypoints')).reduce(
     const entry = config.get('webpack.entrypoints')[key];
     const entryArray = Array.isArray(entry) ? entry : [entry];
     const jsEntryArray = entryArray.filter((version) =>
-      version.endsWith('.js'),
+      version.endsWith('.js')
     );
 
     return [...carry, ...jsEntryArray];
   },
-  [],
+  []
 );
 
 /**

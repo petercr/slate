@@ -7,8 +7,8 @@ beforeEach(() => {
   jest.mock('fs', () => {
     const fs = jest.genMockFromModule('fs');
     fs.originalExistsSync = fs.existsSync;
-    fs.existsSync = jest.fn(
-      (value) => (value === '/some/path' ? true : fs.originalExistsSync(value)),
+    fs.existsSync = jest.fn((value) =>
+      value === '/some/path' ? true : fs.originalExistsSync(value)
     );
     return fs;
   });
@@ -58,7 +58,7 @@ describe('returns a webpack config object containing babel-loader', () => {
     expect(Array.isArray(part.module.rules)).toBeTruthy();
     expect(typeof part.module.rules[0]).toBe('object');
     expect(part.module.rules[0].exclude).toBe(
-      global.slateUserConfig['webpack.babel.exclude'],
+      global.slateUserConfig['webpack.babel.exclude']
     );
   });
 });

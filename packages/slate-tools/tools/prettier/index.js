@@ -1,6 +1,7 @@
 const fs = require('fs');
 const {exec} = require('child_process');
 const {promisify} = require('util');
+
 const SlateConfig = require('@shopify/slate-config');
 
 const config = new SlateConfig(require('../../slate-tools.schema'));
@@ -24,8 +25,8 @@ async function prettier({scripts, styles, json} = {}) {
   try {
     await promisify(exec)(
       `${JSON.stringify(
-        executable,
-      )} "${glob}" --write ${prettierConfig} ${ignorePath}`,
+        executable
+      )} "${glob}" --write ${prettierConfig} ${ignorePath}`
     );
   } catch (error) {
     if (typeof error.stdout !== 'string') {

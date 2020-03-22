@@ -5,7 +5,7 @@ function FileListPlugin(version) {
   this.version = version;
 }
 
-FileListPlugin.prototype.apply = function(compiler) {
+FileListPlugin.prototype.apply = function (compiler) {
   compiler.hooks.emit.tap('Slate Tag Plugin', (compilation) => {
     const asset = compilation.assets[SETTINGS_SCHEMA_PATH].source();
     const schema = JSON.parse(asset);

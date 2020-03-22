@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+
 const archiver = require('archiver');
 const chalk = require('chalk');
 const SlateConfig = require('@shopify/slate-config');
@@ -22,8 +23,8 @@ if (!fs.existsSync(config.get('paths.theme.dist'))) {
   console.log(
     chalk.red(
       `${config.get('paths.theme.dist')} was not found. \n` +
-        'Please run the Slate Build script before running Slate Zip',
-    ),
+        'Please run the Slate Build script before running Slate Zip'
+    )
   );
 
   process.exit();

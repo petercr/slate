@@ -15,13 +15,11 @@ const SlateConfig = require('@shopify/slate-config');
 const promptContinueIfPublishedTheme = require('../prompts/continue-if-published-theme');
 const promptSkipSettingsData = require('../prompts/skip-settings-data');
 const promptExternalTesting = require('../prompts/external-testing');
-
 const AssetServer = require('../../tools/asset-server');
 const DevServer = require('../../tools/dev-server');
 const webpackConfig = require('../../tools/webpack/config/dev');
 const packageJson = require('../../package.json');
 const {getAvailablePortSeries} = require('../../tools/utilities');
-
 const config = new SlateConfig(require('../../slate-tools.schema'));
 
 const spinner = ora(chalk.magenta(' Compiling...'));
@@ -35,7 +33,7 @@ let previewUrl;
 
 Promise.all([
   getAvailablePortSeries(config.get('network.startPort'), 3),
-  promptExternalTesting()
+  promptExternalTesting(),
 ])
   .then(([ports, external]) => {
     const address = external
@@ -106,21 +104,22 @@ function onCompilerDone(stats) {
 
   if (!statsJson.errors.length && !statsJson.warnings.length) {
     console.log(
-      `${chalk.green(figures.tick)}  Compiled successfully in ${statsJson.time /
-        1000}s!`,
+      `${chalk.green(figures.tick)}  Compiled successfully in ${
+        statsJson.time / 1000
+      }s!`
     );
   }
 }
 
 async function onClientBeforeSync(files) {
-  try{
+  try {
     if (firstSync && argv.skipFirstDeploy) {
       assetServer.skipDeploy = true;
       return;
     }
 
     if (continueIfPublishedTheme === null) {
-      continueIfPublishedTheme = await promptContinueIfPublishedTheme()
+      continueIfPublishedTheme = await promptContinueIfPublishedTheme();
     }
 
     if (!continueIfPublishedTheme) {
@@ -133,14 +132,12 @@ async function onClientBeforeSync(files) {
 
     if (skipSettingsData) {
       assetServer.files = files.filter(
-        (file) => !file.endsWith('settings_data.json'),
+        (file) => !file.endsWith('settings_data.json')
       );
     }
   } catch (error) {
     console.error(
-      `\n${chalk.redBright(
-        error, ' function onClientBeforeSync'
-      )}`,
+      `\n${chalk.redBright(error, ' function onClientBeforeSync')}`
     );
   }
 }
@@ -150,8 +147,8 @@ function onClientSyncSkipped() {
 
   console.log(
     `\n${chalk.blue(
-      figures.info,
-    )}  Skipping first deployment because --skipFirstDeploy flag`,
+      figures.info
+    )}  Skipping first deployment because --skipFirstDeploy flag`
   );
 }
 
@@ -173,10 +170,10 @@ async function onClientAfterSync() {
   console.log();
   console.log(
     `${chalk.yellow(
-      figures.star,
+      figures.star
     )}  You are editing files in theme ${chalk.green(
-      env.getThemeIdValue(),
-    )} on the following store:\n`,
+      env.getThemeIdValue()
+    )} on the following store:\n`
   );
 
   console.log(`      ${chalk.cyan(previewUrl)}`);
@@ -184,12 +181,12 @@ async function onClientAfterSync() {
   console.log();
   console.log(`   Your theme can be previewed at:\n`);
   console.log(
-    `      ${chalk.cyan(urls.get('local'))} ${chalk.grey('(Local)')}`,
+    `      ${chalk.cyan(urls.get('local'))} ${chalk.grey('(Local)')}`
   );
 
   if (devServer.address !== 'localhost') {
     console.log(
-      `      ${chalk.cyan(urls.get('external'))} ${chalk.grey('(External)')}`,
+      `      ${chalk.cyan(urls.get('external'))} ${chalk.grey('(External)')}`
     );
   }
   console.log();
@@ -197,15 +194,15 @@ async function onClientAfterSync() {
 
   console.log(
     `      ${chalk.cyan(`https://localhost:${assetServer.port}`)} ${chalk.grey(
-      '(Local)',
-    )}`,
+      '(Local)'
+    )}`
   );
 
   if (assetServer.address !== 'localhost') {
     console.log(
       `      ${chalk.cyan(
-        `https://${assetServer.address}:${assetServer.port}`,
-      )} ${chalk.grey('(External)')}`,
+        `https://${assetServer.address}:${assetServer.port}`
+      )} ${chalk.grey('(External)')}`
     );
   }
 
@@ -214,9 +211,7 @@ async function onClientAfterSync() {
 
   if (devServer.address !== 'localhost') {
     console.log(
-      `      ${chalk.cyan(urls.get('ui-external'))} ${chalk.grey(
-        '(External)',
-      )}`,
+      `      ${chalk.cyan(urls.get('ui-external'))} ${chalk.grey('(External)')}`
     );
   }
 

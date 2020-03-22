@@ -1,8 +1,8 @@
 {
   "name": "@shopify/slate-tools",
-  "version": "1.0.0-beta.20",
+  "version": "1.0.0-beta.19",
   "description": "A modern development toolkit for Shopify themes",
-  "repository": "https://github.com/Shopify/slate/tree/1.x/packages/slate-tools",
+  "repository": "https://github.com/ChacunSonSite/slate/tree/1.0.0-beta.20/packages/slate-tools",
   "license": "MIT",
   "author": "Shopify",
   "bugs": {

@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 
 const VALID_LIQUID_TEMPLATES = [
@@ -27,12 +29,12 @@ const VALID_LIQUID_TEMPLATES = [
 
 function isValidTemplate(filename) {
   const name = VALID_LIQUID_TEMPLATES.filter((template) =>
-    filename.startsWith(`${template}.`),
+    filename.startsWith(`${template}.`)
   );
   return Boolean(name);
 }
 
-module.exports = function() {
+module.exports = function () {
   const entrypoints = {};
 
   fs.readdirSync(config.get('paths.theme.src.templates')).forEach((file) => {
@@ -40,7 +42,7 @@ module.exports = function() {
     const jsFile = path.join(
       config.get('paths.theme.src.scripts'),
       'templates',
-      `${name}.js`,
+      `${name}.js`
     );
 
     if (isValidTemplate(name) && fs.existsSync(jsFile)) {
@@ -48,21 +50,21 @@ module.exports = function() {
     }
   });
 
-  fs
-    .readdirSync(config.get('paths.theme.src.templates.customers'))
-    .forEach((file) => {
+  fs.readdirSync(config.get('paths.theme.src.templates.customers')).forEach(
+    (file) => {
       const name = `${path.parse(file).name}`;
       const jsFile = path.join(
         config.get('paths.theme.src.scripts'),
         'templates',
         'customers',
-        `${name}.js`,
+        `${name}.js`
       );
 
       if (isValidTemplate(name) && fs.existsSync(jsFile)) {
         entrypoints[`template.${name}`] = jsFile;
       }
-    });
+    }
+  );
 
   return entrypoints;
 };

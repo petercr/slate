@@ -1,6 +1,7 @@
 const fs = require('fs');
 const execSync = require('child_process').execSync;
 const path = require('path');
+
 const SlateConfig = require('@shopify/slate-config');
 
 const config = new SlateConfig(require('../../slate-tools.schema'));
@@ -9,7 +10,7 @@ function eslint({fix} = {}) {
   const executable = config.get('eslint.bin');
   const cachePath = path.join(
     config.get('paths.theme.cache'),
-    'eslint-scripts',
+    'eslint-scripts'
   );
   const extensions = ['.js'];
   const fixFlag = fix ? '--fix' : '';
@@ -23,7 +24,7 @@ function eslint({fix} = {}) {
     `${JSON.stringify(executable)} . ${extensions} ${ignorePath} ${eslintConfig}` +
     ` ${fixFlag} --max-warnings 0 ` +
     `--cache true --cache-location ${JSON.stringify(`${cachePath}${path.sep}`)}`,
-    {stdio: 'inherit'},
+    {stdio: 'inherit'}
   );
 }
 

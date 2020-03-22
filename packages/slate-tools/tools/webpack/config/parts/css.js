@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -16,7 +17,7 @@ const cssRule = {
 };
 
 const styleLoader = {
-  loader: 'style-loader'
+  loader: 'style-loader',
 };
 
 const cssLoader = {

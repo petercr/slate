@@ -17,7 +17,7 @@ describe('eslint()', () => {
     expect(execSync).toHaveBeenCalledTimes(1);
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(config.get('eslint.bin')),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -30,7 +30,7 @@ describe('eslint()', () => {
 
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(`--config ${config.get('eslint.config')}`),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -43,9 +43,9 @@ describe('eslint()', () => {
 
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(
-        `--ignore-path ${config.get('eslint.ignorePath')}`,
+        `--ignore-path ${config.get('eslint.ignorePath')}`
       ),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -54,7 +54,7 @@ describe('eslint()', () => {
     eslint();
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining('--cache true --cache-location'),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -63,7 +63,7 @@ describe('eslint()', () => {
     eslint();
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining('--max-warnings 0'),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -72,7 +72,7 @@ describe('eslint()', () => {
     eslint({fix: true});
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(' --fix '),
-      expect.anything(),
+      expect.anything()
     );
   });
 });

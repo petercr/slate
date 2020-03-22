@@ -1,6 +1,7 @@
+const https = require('https');
+
 const chalk = require('chalk');
 const figures = require('figures');
-const https = require('https');
 const themekit = require('@shopify/themekit').command;
 const slateEnv = require('@shopify/slate-env');
 const SlateConfig = require('@shopify/slate-config');
@@ -30,8 +31,8 @@ function _validateEnvValues() {
   if (!result.isValid) {
     console.log(
       chalk.red(
-        `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`,
-      ),
+        `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`
+      )
     );
     result.errors.forEach((error) => {
       console.log(chalk.red(`- ${error}`));
@@ -80,7 +81,7 @@ function _generateIgnoreFlags() {
 async function deploy(cmd = '', files = []) {
   if (!['upload', 'replace'].includes(cmd)) {
     throw new Error(
-      'shopify-deploy.deploy() first argument must be either "upload", "replace"',
+      'shopify-deploy.deploy() first argument must be either "upload", "replace"'
     );
   }
 
@@ -117,7 +118,7 @@ function promiseThemekitConfig() {
         } else {
           resolve();
         }
-      },
+      }
     );
   });
 }
@@ -140,7 +141,7 @@ function promiseThemekitDeploy(cmd, files) {
         } else {
           resolve();
         }
-      },
+      }
     );
   });
 }
@@ -179,9 +180,9 @@ function fetchMainThemeId() {
                 `API request to fetch main theme ID failed: \n${JSON.stringify(
                   parsed.errors,
                   null,
-                  '\t',
-                )}`,
-              ),
+                  '\t'
+                )}`
+              )
             );
             return;
           }
@@ -192,9 +193,9 @@ function fetchMainThemeId() {
                 `Shopify response for /admin/themes.json is not an array. ${JSON.stringify(
                   parsed,
                   null,
-                  '\t',
-                )}`,
-              ),
+                  '\t'
+                )}`
+              )
             );
             return;
           }
@@ -207,16 +208,16 @@ function fetchMainThemeId() {
                 `No main theme in response. ${JSON.stringify(
                   parsed.themes,
                   null,
-                  '\t',
-                )}`,
-              ),
+                  '\t'
+                )}`
+              )
             );
             return;
           }
 
           resolve(mainTheme.id);
         });
-      },
+      }
     );
   });
 }

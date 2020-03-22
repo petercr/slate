@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const figures = require('figures');
-const { flatten } = require('array-flatten');
+const {flatten} = require('array-flatten');
 const minimatch = require('minimatch');
 const {argv} = require('yargs');
 const {getIgnoreFilesValue} = require('@shopify/slate-env');
@@ -18,7 +18,7 @@ const question = {
 
 function _includesSettingsData(files) {
   const settingsData = files.filter((file) =>
-    file.endsWith('settings_data.json'),
+    file.endsWith('settings_data.json')
   );
   return settingsData.length > 0;
 }
@@ -33,11 +33,11 @@ function _filterIgnoredFiles(files) {
       }
 
       return files.filter(minimatch.filter(glob));
-    }),
+    })
   );
 }
 
-module.exports = async function(files) {
+module.exports = async function (files) {
   const ignoredFiles = _filterIgnoredFiles(files);
 
   if (
@@ -51,21 +51,21 @@ module.exports = async function(files) {
 
   console.log(
     `\n${chalk.yellow(
-      figures.warning,
+      figures.warning
     )}  It looks like you are about to upload the ${chalk.bold(
-      'settings_data.json',
+      'settings_data.json'
     )} file.\n` +
       `   This can reset any theme setting customizations you have done in the\n` +
       `   Theme Editor. To always ignore uploading ${chalk.bold(
-        'settings_data.json',
+        'settings_data.json'
       )}, add the\n` +
-      `   following to your ${chalk.bold('.env')} file: \n`,
+      `   following to your ${chalk.bold('.env')} file: \n`
   );
   console.log(
-    `${chalk.cyan('      SLATE_IGNORE_FILES=/config/settings_data.json')}\n`,
+    `${chalk.cyan('      SLATE_IGNORE_FILES=/config/settings_data.json')}\n`
   );
   console.log(
-    `   Or to disable this prompt, add the following to your slate.config.js file:\n`,
+    `   Or to disable this prompt, add the following to your slate.config.js file:\n`
   );
   console.log(`      ${chalk.cyan(`'cli.promptSettings': false`)}\n`);
 

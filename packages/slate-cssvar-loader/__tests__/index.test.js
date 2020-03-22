@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+
 import compiler from './helpers/compiler';
 
 describe('slate-cssvar-loader ', () => {
@@ -18,7 +19,7 @@ describe('slate-cssvar-loader ', () => {
 
     const expected = fs.readFileSync(
       path.resolve(__dirname, './fixtures/expected.js'),
-      'utf8',
+      'utf8'
     );
     expect(output).toBe(expected);
   });
@@ -31,7 +32,7 @@ describe('slate-cssvar-loader ', () => {
 
     const expected = fs.readFileSync(
       path.resolve(__dirname, './fixtures/expected-disabled.js'),
-      'utf8',
+      'utf8'
     );
     expect(output).toBe(expected);
   });
@@ -46,7 +47,7 @@ describe('slate-cssvar-loader ', () => {
 
     const expected = fs.readFileSync(
       path.resolve(__dirname, './fixtures/expected-morevars.js'),
-      'utf8',
+      'utf8'
     );
     expect(output).toBe(expected);
   });

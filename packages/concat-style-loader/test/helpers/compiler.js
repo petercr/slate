@@ -1,4 +1,5 @@
 const path = require('path');
+
 const webpack = require('webpack');
 const MemoryFileSystem = require('memory-fs');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');

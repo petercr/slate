@@ -16,6 +16,6 @@ test(`merges contents of 'webpack.extend' into webpack config`, () => {
   require('../prod');
 
   expect(merge).toBeCalledWith(
-    expect.arrayContaining([global.slateUserConfig['webpack.extend']]),
+    expect.arrayContaining([global.slateUserConfig['webpack.extend']])
   );
 });

@@ -1,4 +1,5 @@
 const {execSync} = require('child_process');
+
 const execa = require('execa');
 
 function spawn(cmd, options = {stdio: 'inherit'}) {

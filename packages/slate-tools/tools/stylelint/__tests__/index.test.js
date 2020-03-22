@@ -15,7 +15,7 @@ describe('stylelint()', () => {
     expect(execSync).toHaveBeenCalledTimes(1);
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(config.get('stylelint.bin')),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -26,7 +26,7 @@ describe('stylelint()', () => {
     stylelint();
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(`--config ${config.get('stylelint.config')}`),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -37,9 +37,9 @@ describe('stylelint()', () => {
     stylelint();
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining(
-        `--ignore-path ${config.get('stylelint.ignorePath')}`,
+        `--ignore-path ${config.get('stylelint.ignorePath')}`
       ),
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -48,7 +48,7 @@ describe('stylelint()', () => {
     stylelint({fix: true});
     expect(execSync).toHaveBeenCalledWith(
       expect.stringContaining('--fix'),
-      expect.anything(),
+      expect.anything()
     );
   });
 });

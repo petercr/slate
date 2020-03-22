@@ -1,16 +1,17 @@
+const path = require('path');
+
 const hostedGitInfo = require('hosted-git-info');
 const validateProjectName = require('validate-npm-package-name');
 const env = require('@shopify/slate-env');
 const fs = require('fs-extra');
-const path = require('path');
 const chalk = require('chalk');
+
 const utils = require('./utils');
 const config = require('./create-slate-theme.config');
-const packageJson = require('./package.json');
 
 module.exports = async function createSlateTheme(name, starter, flags) {
   const root = path.resolve(name);
-  const options = Object.assign({}, config.defaultOptions, flags);
+  const options = {...config.defaultOptions, ...flags};
 
   checkAppName(name);
   fs.ensureDirSync(root);
@@ -28,8 +29,8 @@ function checkAppName(name) {
   if (!validationResult.validForNewPackages) {
     console.error(
       `Could not create a project called ${chalk.red(
-        `"${name}"`,
-      )} because of npm naming restrictions:`,
+        `"${name}"`
+      )} because of npm naming restrictions:`
     );
     printValidationResults(validationResult.errors);
     printValidationResults(validationResult.warnings);
@@ -56,7 +57,7 @@ function checkDirForConflicts(root) {
   if (conflicts.length > 0) {
     console.log();
     console.log(
-      `The directory ${chalk.green(root)} contains files that could conflict:`,
+      `The directory ${chalk.green(root)} contains files that could conflict:`
     );
     console.log();
     for (const file of conflicts) {
@@ -64,7 +65,7 @@ function checkDirForConflicts(root) {
     }
     console.log();
     console.log(
-      'Either try using a new directory name, or remove the files listed above.',
+      'Either try using a new directory name, or remove the files listed above.'
     );
 
     process.exit(1);
@@ -100,7 +101,7 @@ function copyFromDir(starter, root) {
   // 493 = parseInt('755', 8)
   return fs.mkdirp(root, {mode: 493}).then(() => {
     console.log(
-      `Creating new theme from local starter: ${chalk.green(starter)}`,
+      `Creating new theme from local starter: ${chalk.green(starter)}`
     );
     return fs.copy(starter, root, {
       filter: (file) =>

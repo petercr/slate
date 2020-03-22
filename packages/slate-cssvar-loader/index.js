@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('./slate-cssvar-loader.schema'));
 
 const STYLE_BLOCK_REGEX = /(?:<style>|\{%-? style -?%\})([\S\s]*?)(?:<\/style>|\{%-? endstyle -?%\})/g;
@@ -13,7 +15,7 @@ function parseCSSVariables(cssVariablesPaths) {
   cssVariablesPaths.forEach((cssVariablesPath) => {
     const themeFilePath = path.resolve(
       config.get('paths.theme'),
-      cssVariablesPath,
+      cssVariablesPath
     );
     const content = fs.readFileSync(themeFilePath, 'utf8');
     while ((styleBlock = STYLE_BLOCK_REGEX.exec(content)) != null) {
@@ -44,7 +46,7 @@ function SlateCSSLoader(source) {
   return source.replace(CSS_VAR_FUNC_REGEX, (match, cssVariable) => {
     if (!variables[cssVariable]) {
       console.warn(
-        `Liquid variable not found for CSS variable "${cssVariable}"`,
+        `Liquid variable not found for CSS variable "${cssVariable}"`
       );
 
       return match;

@@ -1,6 +1,8 @@
 const fs = require('fs');
+
 const uuidGenerator = require('uuid/v4');
 const SlateConfig = require('@shopify/slate-config');
+
 const config = new SlateConfig(require('./slate-rc.schema'));
 const SlateRcError = require('./slate-rc-error');
 
@@ -20,8 +22,8 @@ function get() {
   } catch (error) {
     throw new SlateRcError(
       `There was an error while JSON parsing ${config.get(
-        'paths.slateRc',
-      )}. Please make sure file is valid JSON.`,
+        'paths.slateRc'
+      )}. Please make sure file is valid JSON.`
     );
   }
 }
@@ -29,7 +31,7 @@ function get() {
 function generate() {
   if (fs.existsSync(config.get('paths.slateRc'))) {
     throw new SlateRcError(
-      '.slaterc file already exists. Use the update() method to update its values.',
+      '.slaterc file already exists. Use the update() method to update its values.'
     );
   }
 
@@ -43,7 +45,7 @@ function generate() {
 }
 
 function update(updates) {
-  const content = Object.assign({}, get(), updates);
+  const content = {...get(), ...updates};
   fs.writeFileSync(config.get('paths.slateRc'), JSON.stringify(content));
   return content;
 }

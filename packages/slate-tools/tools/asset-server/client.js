@@ -3,7 +3,7 @@ const {sync} = require('@shopify/slate-sync');
 
 module.exports = class Client {
   constructor(options) {
-    this.options = Object.assign({}, this.defaults, options);
+    this.options = {...this.defaults, ...options};
     this.skipNextSync = false;
     this.files = [];
     this.hooks = {

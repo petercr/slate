@@ -1,4 +1,5 @@
 const path = require('path');
+
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,17 +8,18 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const SlateConfig = require('@shopify/slate-config');
 const SlateTagPlugin = require('@shopify/slate-tag-webpack-plugin');
 
+const packageJson = require('../../../package.json');
+const getChunkName = require('../get-chunk-name');
+const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
+
 const babel = require('./parts/babel');
 const sass = require('./parts/sass');
 const entry = require('./parts/entry');
 const core = require('./parts/core');
 const css = require('./parts/css');
-
-const packageJson = require('../../../package.json');
-const getChunkName = require('../get-chunk-name');
 const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
 const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
-const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
+
 const config = new SlateConfig(require('../../../slate-tools.schema'));
 
 module.exports = merge([

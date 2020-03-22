@@ -1,25 +1,25 @@
 const path = require('path');
+
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const SlateConfig = require('@shopify/slate-config');
+
+const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
+const config = new SlateConfig(require('../../../slate-tools.schema'));
 
 const core = require('./parts/core');
 const babel = require('./parts/babel');
 const entry = require('./parts/entry');
 const sass = require('./parts/sass');
 const css = require('./parts/css');
-
 const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
 const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
-const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
-const config = new SlateConfig(require('../../../slate-tools.schema'));
 
 // add hot-reload related code to entry chunks
 Object.keys(entry.entry).forEach((name) => {
   entry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
-    entry.entry[name],
+    entry.entry[name]
   );
 });
 

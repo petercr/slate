@@ -23,11 +23,11 @@ test(`passes 'webpack.postcss.plugins' config to PostCSS Loader`, () => {
 
   const part = require('../sass');
   const postcssLoader = part.module.rules[0].use.find(
-    (item) => item.loader === 'postcss-loader',
+    (item) => item.loader === 'postcss-loader'
   );
 
   expect(postcssLoader.options.plugins).toMatchObject(
-    config.get('webpack.postcss.plugins'),
+    config.get('webpack.postcss.plugins')
   );
 });
 
@@ -37,22 +37,22 @@ test(`passes 'webpack.sourceMap.styles' config to loaders`, () => {
 
   const part = require('../sass');
   const postcssLoader = part.module.rules[0].use.find(
-    (item) => item.loader === 'postcss-loader',
+    (item) => item.loader === 'postcss-loader'
   );
   const cssLoader = part.module.rules[0].use.find(
-    (item) => item.loader === 'css-loader',
+    (item) => item.loader === 'css-loader'
   );
   const sassLoader = part.module.rules[0].use.find(
-    (item) => item.loader === 'sass-loader',
+    (item) => item.loader === 'sass-loader'
   );
 
   expect(postcssLoader.options.sourceMap).toBe(
-    config.get('webpack.sourceMap.styles'),
+    config.get('webpack.sourceMap.styles')
   );
   expect(cssLoader.options.sourceMap).toBe(
-    config.get('webpack.sourceMap.styles'),
+    config.get('webpack.sourceMap.styles')
   );
   expect(sassLoader.options.sourceMap).toBe(
-    config.get('webpack.sourceMap.styles'),
+    config.get('webpack.sourceMap.styles')
   );
 });

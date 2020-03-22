@@ -1,6 +1,7 @@
 const path = require('path');
 const {promisify} = require('util');
 const {existsSync, readFileSync} = require('fs');
+
 const portscanner = require('portscanner');
 const SlateConfig = require('@shopify/slate-config');
 

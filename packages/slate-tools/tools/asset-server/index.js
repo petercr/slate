@@ -1,18 +1,19 @@
 const webpack = require('webpack');
+
 const {createServer} = require('https');
 const createHash = require('crypto').createHash;
+
 const SlateConfig = require('@shopify/slate-config');
 
 const App = require('./app');
 const Client = require('./client');
+
 const {sslKeyCert, isHotUpdateFile} = require('../utilities');
 const config = new SlateConfig(require('../../slate-tools.schema'));
 
 module.exports = class DevServer {
   constructor(options) {
-    options.webpackConfig.output.publicPath = `https://${options.address}:${
-      options.port
-    }/`;
+    options.webpackConfig.output.publicPath = `https://${options.address}:${options.port}/`;
 
     this.assetHashes = {};
     this.address = options.address;
@@ -23,14 +24,14 @@ module.exports = class DevServer {
     this.client = new Client();
     this.client.hooks.afterSync.tap(
       'HotMiddleWare',
-      this._onAfterSync.bind(this),
+      this._onAfterSync.bind(this)
     );
   }
 
   start() {
     this.compiler.hooks.done.tapPromise(
       'DevServer',
-      this._onCompileDone.bind(this),
+      this._onCompileDone.bind(this)
     );
     this.ssl = sslKeyCert();
     this.server = createServer(this.ssl, this.app);
@@ -102,9 +103,7 @@ module.exports = class DevServer {
   _updateAssetHash(key, asset) {
     const rawSource = asset.source();
     const source = Array.isArray(rawSource) ? rawSource.join('\n') : rawSource;
-    const hash = createHash('sha256')
-      .update(source)
-      .digest('hex');
+    const hash = createHash('sha256').update(source).digest('hex');
 
     return (this.assetHashes[key] = hash);
   }

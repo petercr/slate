@@ -26,7 +26,7 @@ test('Calls createSlateTheme with process.argv[2] and, if provided, process.argv
   expect(require('../create-slate-theme')).toHaveBeenCalledWith(
     mockArgs[2],
     mockArgs[3],
-    config.defaultOptions,
+    config.defaultOptions
   );
 
   process.argv = args;
@@ -41,24 +41,24 @@ test('Calls createSlateTheme with the default repo if process.argv[3] is undefin
   expect(require('../create-slate-theme')).toHaveBeenCalledWith(
     mockArgs[2],
     config.defaultStarter,
-    config.defaultOptions,
+    config.defaultOptions
   );
 
   process.argv = args;
 });
 
 test('Registers an --ssh flag and passes it to Create Slate Theme', () => {
-  const config = Object.assign({}, require('../create-slate-theme.config'));
+  const config = {...require('../create-slate-theme.config')};
   const mockArgs = ['node', 'index.js', 'test-project', '--ssh'];
 
-  config.defaultOptions = Object.assign({}, config.defaultOptions, {ssh: true});
+  config.defaultOptions = {...config.defaultOptions, ssh: true};
   process.argv = mockArgs;
 
   require('./../index.js');
   expect(require('../create-slate-theme')).toHaveBeenCalledWith(
     mockArgs[2],
     config.defaultStarter,
-    config.defaultOptions,
+    config.defaultOptions
   );
 });
 

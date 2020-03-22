@@ -1,11 +1,12 @@
-const fs = require('fs-extra');
 const path = require('path');
+
+const fs = require('fs-extra');
 const {
   createSchemaContentWithLocales,
   combineLocales,
 } = require('@shopify/slate-translations');
 
-module.exports = async function(content, filePath) {
+module.exports = async function (content, filePath) {
   if (path.basename(filePath) !== 'settings_schema.json') {
     return content;
   }

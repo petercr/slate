@@ -1,5 +1,6 @@
-const fs = require('fs-extra');
 const path = require('path');
+
+const fs = require('fs-extra');
 const _ = require('lodash');
 
 /**
@@ -10,17 +11,20 @@ const _ = require('lodash');
  * @returns
  */
 async function createSchemaContentWithLocales(localizedSchema, mainSchemaPath) {
-  // eslint-disable-next-line func-style
   const traverse = async (obj) => {
     const objectKeys = Object.keys(obj);
     await Promise.all(
       objectKeys.map(async (key) => {
         if (typeof obj[key].t === 'string') {
-          obj[key] = await _getLocalizedValues(obj[key].t, localizedSchema);
+          const localizedValues = await _getLocalizedValues(
+            obj[key].t,
+            localizedSchema
+          );
+          obj[key] = localizedValues;
         } else if (typeof obj[key] === 'object') {
           await traverse(obj[key]);
         }
-      }),
+      })
     );
     return JSON.stringify(obj, null, 2);
   };
@@ -37,17 +41,14 @@ async function createSchemaContentWithLocales(localizedSchema, mainSchemaPath) {
 async function combineLocales(localesPath) {
   const localesFiles = await fs.readdir(localesPath);
   const jsonFiles = localesFiles.filter((fileName) =>
-    fileName.endsWith('.json'),
+    fileName.endsWith('.json')
   );
 
   return jsonFiles.reduce(async (promise, file) => {
     const accumulator = await promise;
-    const localeCode = path
-      .basename(file)
-      .split('.')
-      .shift();
+    const localeCode = path.basename(file).split('.').shift();
     const fileContents = JSON.parse(
-      await fs.readFile(path.resolve(localesPath, file), 'utf-8'),
+      await fs.readFile(path.resolve(localesPath, file), 'utf-8')
     );
     accumulator[localeCode] = fileContents;
     return accumulator;
@@ -69,9 +70,9 @@ async function _getLocalizedValues(key, localizedSchema) {
     Object.keys(localizedSchema).map((language) => {
       combinedTranslationsObject[language] = _.get(
         localizedSchema[language],
-        key,
+        key
       );
-    }),
+    })
   );
 
   return combinedTranslationsObject;
