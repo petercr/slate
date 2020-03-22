@@ -16,10 +16,7 @@ const sassRule = {
 };
 
 const styleLoader = {
-  loader: 'style-loader',
-  options: {
-    hmr: isDev,
-  },
+  loader: 'style-loader'
 };
 
 const cssLoader = {
