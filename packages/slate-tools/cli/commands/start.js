@@ -12,6 +12,11 @@ const ip = require('ip');
 const env = require('@shopify/slate-env');
 const SlateConfig = require('@shopify/slate-config');
 
+const spinner = ora({
+  text: chalk.magenta(' Starting...'),
+  spinner: 'dots10'
+}).start();
+
 const promptContinueIfPublishedTheme = require('../prompts/continue-if-published-theme');
 const promptSkipSettingsData = require('../prompts/skip-settings-data');
 const promptExternalTesting = require('../prompts/external-testing');
@@ -21,8 +26,6 @@ const webpackConfig = require('../../tools/webpack/config/dev');
 const packageJson = require('../../package.json');
 const {getAvailablePortSeries} = require('../../tools/utilities');
 const config = new SlateConfig(require('../../slate-tools.schema'));
-
-const spinner = ora(chalk.magenta(' Compiling...'));
 
 let firstSync = true;
 let skipSettingsData = null;
@@ -55,6 +58,7 @@ Promise.all([
     });
 
     previewUrl = `https://${env.getStoreValue()}?preview_theme_id=${env.getThemeIdValue()}`;
+    spinner.text = chalk.magenta(' Compiling ...');
 
     assetServer.compiler.hooks.compile.tap('CLI', onCompilerCompile);
     assetServer.compiler.hooks.done.tap('CLI', onCompilerDone);
@@ -74,7 +78,7 @@ function onCompilerCompile() {
   if (process.env.NODE_ENV !== 'test') {
     clearConsole();
   }
-  spinner.start();
+  // spinner.start();
 }
 
 function onCompilerDone(stats) {

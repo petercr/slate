@@ -1,6 +1,13 @@
 // Set NODE_ENV so slate.config.js can return different values for
 // production vs development builds
 process.env.NODE_ENV = 'production';
+const chalk = require('chalk');
+const ora = require('ora');
+
+const spinner = ora({
+  text: chalk.magenta(' Compiling...'),
+  spinner: 'dots10'
+}).start();
 
 /*
  * Run Webpack with the webpack.prod.conf.js configuration file. Write files to disk.
@@ -26,6 +33,8 @@ webpack(webpackConfig, (err, stats) => {
   );
 
   console.log('');
+
+  spinner.stop();
 
   if (stats.compilation.errors.length) process.exit(1);
 });
