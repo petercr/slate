@@ -1,5 +1,6 @@
 const path = require('path');
 
+const {argv} = require('yargs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,6 +8,8 @@ const SlateConfig = require('@shopify/slate-config');
 
 const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
 const config = new SlateConfig(require('../../../slate-tools.schema'));
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 const core = require('./parts/core');
 const babel = require('./parts/babel');
@@ -23,6 +26,57 @@ Object.keys(entry.entry).forEach((name) => {
   );
 });
 
+const plugins = [
+  new webpack.HotModuleReplacementPlugin(),
+
+  new HtmlWebpackPlugin({
+    excludeChunks: ['static'],
+    filename: `../snippets/script-tags.liquid`,
+    template: path.resolve(__dirname, '../script-tags.html'),
+    inject: false,
+    minify: {
+      removeComments: true,
+      removeAttributeQuotes: false,
+    },
+    isDevServer: true,
+    liquidTemplates: getTemplateEntrypoints(),
+    liquidLayouts: getLayoutEntrypoints(),
+  }),
+
+  new HtmlWebpackPlugin({
+    excludeChunks: ['static'],
+    filename: `../snippets/style-tags.liquid`,
+    template: path.resolve(__dirname, '../style-tags.html'),
+    inject: false,
+    minify: {
+      removeComments: true,
+      removeAttributeQuotes: false,
+      // more options:
+      // https://github.com/kangax/html-minifier#options-quick-reference
+    },
+    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    chunksSortMode: 'dependency',
+    isDevServer: true,
+    liquidTemplates: getTemplateEntrypoints(),
+    liquidLayouts: getLayoutEntrypoints(),
+  }),
+
+  new HtmlWebpackIncludeLiquidStylesPlugin(),
+];
+
+if (argv.analyze || argv.a) {
+  plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      defaultSizes: 'gzip',
+      generateStatsFile: true,
+      openAnalyzer: true,
+      reportFilename: path.resolve(`../build-analysis/index.html`),
+      statsFilename: path.resolve(`../build-analysis/results.json`),
+    })
+  );
+}
+
 module.exports = merge([
   core,
   entry,
@@ -34,43 +88,7 @@ module.exports = merge([
 
     devtool: '#eval-source-map',
 
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-
-      new HtmlWebpackPlugin({
-        excludeChunks: ['static'],
-        filename: `../snippets/script-tags.liquid`,
-        template: path.resolve(__dirname, '../script-tags.html'),
-        inject: false,
-        minify: {
-          removeComments: true,
-          removeAttributeQuotes: false,
-        },
-        isDevServer: true,
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
-      }),
-
-      new HtmlWebpackPlugin({
-        excludeChunks: ['static'],
-        filename: `../snippets/style-tags.liquid`,
-        template: path.resolve(__dirname, '../style-tags.html'),
-        inject: false,
-        minify: {
-          removeComments: true,
-          removeAttributeQuotes: false,
-          // more options:
-          // https://github.com/kangax/html-minifier#options-quick-reference
-        },
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency',
-        isDevServer: true,
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
-      }),
-
-      new HtmlWebpackIncludeLiquidStylesPlugin(),
-    ],
+    plugins,
   },
   config.get('webpack.extend'),
 ]);
