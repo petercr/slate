@@ -6,7 +6,7 @@ const ora = require('ora');
 
 const spinner = ora({
   text: chalk.magenta(' Compiling...'),
-  spinner: 'dots10'
+  spinner: 'dots10',
 }).start();
 
 /*
