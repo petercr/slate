@@ -7,7 +7,7 @@
   <% } %>
 
   <% if (typeof htmlWebpackPlugin.options.liquidLayouts[chunk] !== 'undefined') { %>
-    {%- if layout == '<%= chunk.split('.')[1] %>' -%}
+    {%- if layout == '<%= chunk.split('.')[1] %>' and layout == 'geoip' -%}
       <script type="text/javascript" src="<%= src %>" defer></script>
     {%- else -%}
       <link rel="prefetch" href="<%= src %>" as="script">
@@ -53,5 +53,13 @@
     <% } %>
   <% } else { %>
     <script type="text/javascript" src="<%= src %>" defer></script>
+  <% } %>
+
+  <% if (typeof htmlWebpackPlugin.options.liquidLayouts[chunk] !== 'undefined') { %>
+    {%- if layout == '<%= chunk.split('.')[1]  %>' and layout == 'theme' -%}
+      <script type="text/javascript" src="<%= src %>" defer></script>
+    {%- else -%}
+      <link rel="prefetch" href="<%= src %>" as="script">
+    {%- endif -%}
   <% } %>
 <% } %>
