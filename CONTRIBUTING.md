@@ -2,7 +2,7 @@
 
 This is a community version of Slate which was forked from the original, and is no longer associated with or related to [Shopify.](https://www.shopify.com/)
 
-**Slate was** an open-source project built for the Shopify Theme community, and with contributions from the community this take-off can be very successful too!
+**Slate _was_** an open-source project built for the Shopify Theme community, and with contributions from the community this take-off can be very successful too!
 
 This branch remains open source, and it's open source license can be [found here.](https://github.com/CocoaWebStudio/slate/blob/master/LICENSE)
 
@@ -11,8 +11,8 @@ This branch remains open source, and it's open source license can be [found here
 Here are some of the _**new features**_ that have already be implemented on this project.
 
 - Full Windows Support 🎉
-- Build analysis for build optimization. 🏎
-- Multiple bug corrections 🐛 👢
+- Build analysis for build optimization. 🧐
+- Multiple bug corrections 👢 🐛 💥
 
 _With other new features to be announced..._
 
@@ -28,13 +28,34 @@ If you're thinking of adding a big new feature, consider opening an issue first 
 
 ### No direct NPM support yet ☹️
 
+This repo is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) consisting of multiple packages and is managed using [Lerna](https://github.com/lerna/lerna).
+
 While this is a community fork of an open source project, however due to the number of times [Shopify](https://www.shopify.com/) is mentioned we have not been able to get approval from NPM to publish this package yet.
 
 We are continually working on this issue, and are hoping to have full NPM support in the near future.
 
-Until then please follow the steps below in order to get the project running on your local machine. ⬇
+Until then _please follow_ the steps below in order to get the project running on your local machine. ⬇
 
 ## Getting Started
+
+In order to use this project along with your own Slate project, you need to install both projects into 1 directory.
+
+It should look like this:
+
+```
+parentDirectory/
+   yourSlateProject/
+   slate/
+```
+
+You also need to modify the dev dependencies in the `package.json` file of `./yourSlateProject` just like the following:
+
+```json
+...
+"devDependencies": {
+  "@shopify/slate-tools": "file:../slate/packages/slate-tools",
+...
+```
 
 To start working on the codebase:
 
